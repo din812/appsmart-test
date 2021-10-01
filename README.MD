@@ -25,7 +25,8 @@ Used libraries/apps:
 Build app with: gradle build -x test
 
 Project contains docker-compose.yml, Dockerfile and initdb.sql scripts.
-Compose script creates container with two services and runs sql script with DB schema. Or you can pull image from docker hub with: docker pull din812/appsmartapp:version1
+Compose script creates container with two services and runs sql script with DB schema.
+Alternatively you can pull image from docker hub with: docker pull din812/appsmartapp:version1
 
 Swagger UI http://localhost:7000/swagger-ui
 
