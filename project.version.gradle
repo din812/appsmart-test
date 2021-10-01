@@ -1,0 +1,32 @@
+String path = project.file("src/main/java/ru/din/test/config/OpenApiConfig.java").absolutePath;
+List<String> lines = new LinkedList<>();
+FileReader fileReader = new FileReader(path)
+BufferedReader bufferedReader = new BufferedReader(fileReader)
+while (true) {
+    String line = bufferedReader.readLine()
+    if (line == null)
+        break
+    lines.add(line)
+}
+bufferedReader.close()
+fileReader.close()
+FileOutputStream fileOutputStream = new FileOutputStream(path);
+boolean first = true
+
+
+
+lines.each { x ->
+    int i = x.indexOf("public final static String version")
+    if (i != -1) {
+        i = i + "public final static String version".length()
+        x = x.substring(0, i);
+        x = x + " = \"" + project.version + "\";"
+    }
+    if (first)
+        first = false
+    else
+        fileOutputStream.write("\n".getBytes("utf-8"))
+    fileOutputStream.write(x.getBytes("utf-8"))
+}
+fileOutputStream.close()
+lines.clear();

@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=appsmart_user
+      - POSTGRES_PASSWORD=appsmart
+      - POSTGRES_DB=appsmart_test_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./pg_data:/var/lib/postgresql/data/
+
+  app:
+    build: ./
+    links:
+      - db
+    restart: always
+    environment:
+      - db.url=jdbc:postgresql://db:5432/appsmart_test_db
+      - db.login=appsmart_user
+      - db.password=appsmart
+      - db.pool.size=10
+      - db.min.idle=1
+    ports:
+      - "7000:7000"
+    depends_on:
+      - db
