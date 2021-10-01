@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto putCustomer(UUID customerId, CustomerUpdateDto customerUpdateDto) {
         CustomerEntity customerEntity = customerRepository.findById(customerId)
-                .orElseThrow(() -> new NotFoundException(String.format("[getCustomer] couldn't find customer by id %s", customerId)));
+                .orElseThrow(() -> new NotFoundException(String.format("[putCustomer] couldn't find customer by id %s", customerId)));
 
         return customerMapper.toDto(
                 customerMapper.update(customerEntity, customerUpdateDto)

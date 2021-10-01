@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto putProduct(UUID productId, ProductUpdateDto productUpdateDto) {
         ProductEntity productEntity = productRepository.findById(productId)
-                .orElseThrow(() -> new NotFoundException(String.format("[getProduct] couldn't find customer by id %s", productId)));
+                .orElseThrow(() -> new NotFoundException(String.format("[putProduct] couldn't find customer by id %s", productId)));
 
         return productMapper.toDto(
                 productMapper.update(productEntity, productUpdateDto)
